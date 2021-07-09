@@ -64,7 +64,6 @@ class CategoryProductList extends Component {
   }
 
   getFilters() {
-
     let formData = new FormData();
     formData.append('user_token', 'guest');
     formData.append('category_son_id',this.state.categoryId);

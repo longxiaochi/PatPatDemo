@@ -10,6 +10,7 @@ import {
   Dimensions,
   TouchableOpacity,
   TextInput,
+  ImageBackground,
 } from "react-native";
 
 import {
@@ -17,13 +18,16 @@ import {
   kScreenHeight,
   kStatusBarHeight,
   kNavigationBarHeight,
-  kBottomSafeAreaInset
-} from '../common/common';
+  kBottomSafeAreaInset,
+} from "../common/common";
 
-import Swiper from 'react-native-swiper'
+import CountDownTimer from "../common/countDownTimer";
+
+
+import Swiper from "react-native-swiper";
 
 let page = 1;//当前第几页
-const requestProductUrl = 'http://h5_api.dev.patpat.vip/v1.4/product';
+const requestProductUrl = "http://h5_api.dev.patpat.vip/v1.4/product";
 
 const PPProductDetailCellType = {
   images: 0,
@@ -34,19 +38,14 @@ const PPProductDetailCellType = {
 
 const DATA = [
   {
-    id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
+    id: "bd7acbea-c1b1-46c2-aed5-3ad53abb28ba",
     type: PPProductDetailCellType.images,
-    title: 'First',
+    title: "First",
   },
   {
-    id: '3ac68afc-c605-48d3-a4f8-fbd91aa97f63',
+    id: "3ac68afc-c605-48d3-a4f8-fbd91aa97f63",
     type: PPProductDetailCellType.eventBanner,
-    title: 'Second Item',
-  },
-  {
-    id: '58694a0f-3da1-471f-bd96-145571e29d72',
-    type: PPProductDetailCellType.nameAndPrice,
-    title: 'Third Item',
+    title: "Second Item",
   },
 ];
 
@@ -65,7 +64,8 @@ class PPProductDetailNavigation extends Component {
     return (
       <View style={navigation_styles.container}>
         <TouchableOpacity onPress={this.props.onBackClick}>
-          <Image source={require('../img/product_detail/product_detail_black_close.png')} style={navigation_styles.backButton} />
+          <Image source={require("../img/product_detail/product_detail_black_close.png")}
+                 style={navigation_styles.backButton} />
         </TouchableOpacity>
 
         {/*<View style={navigation_styles.searchBox}>*/}
@@ -75,9 +75,10 @@ class PPProductDetailNavigation extends Component {
         {/*             placeholder='What are you looking for?' />*/}
         {/*</View>*/}
 
-        <Image style={navigation_styles.thumbnail} source={{uri: 'https://reactnative.dev/img/tiny_logo.png'}}/>
+        <Image style={navigation_styles.thumbnail} source={{ uri: "https://reactnative.dev/img/tiny_logo.png" }} />
         <TouchableOpacity onPress={this.props.onBagClick}>
-          <Image source={require('../img/product_detail/product_detail_black_bag.png')} style={navigation_styles.bagButton} >
+          <Image source={require("../img/product_detail/product_detail_black_bag.png")}
+                 style={navigation_styles.bagButton}>
           </Image>
         </TouchableOpacity>
       </View>
@@ -91,43 +92,169 @@ const Item = ({ title }) => {
       <Text style={styles.title}>{title}</Text>
     </View>
   );
+};
+
+function ImageItem(props) {
+  return(
+    // <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+    //   {/*<Image source={{ uri: props.imageUrl}}/>*/}
+    //   <Image source={require("../img/product_detail/product_detail_banner_more.png")} />
+    // </View>
+    <Image source={{uri: props.imageUrl}}
+                      style={{flex: 1, justifyContent: 'center', alignItems: 'center'}} />
+  );
 }
 
+
 const PPProductDetailImagesView = ({ images }) => {
-  var imageItems = new Array();
+  let imageItems = new Array();
   for (let i = 0; i < images.length; i++) {
-    let item = ( <Image source={{uri: images[i]}}
-                        style={{flex: 1, justifyContent: 'center', alignItems: 'center',}} /> );
+    let item = <ImageItem imageUrl={images[i]} />;
     imageItems.push(item);
   }
   return (
-    <Swiper style={product_detail_styles.wrapper} showsButtons={false} horizontal={true} height={kScreenWidth}>
+    <Swiper style={product_detail_styles.wrapper}
+            showsButtons={false}
+            horizontal={true}
+            height={kScreenWidth}
+            autoplay={false}
+            dot={
+              <View
+                style={{
+                  backgroundColor: "white",
+                  width: 8,
+                  height: 8,
+                  borderRadius: 4,
+                  marginLeft: 3,
+                  marginRight: 3,
+                  marginTop: 3,
+                  marginBottom: 3,
+                }}
+              />
+            }
+            activeDot={
+              <View
+                style={{
+                  backgroundColor: "red",
+                  width: 16,
+                  height: 8,
+                  borderRadius: 4,
+                  marginLeft: 3,
+                  marginRight: 3,
+                  marginTop: 3,
+                  marginBottom: 3,
+                }}
+              />
+            }
+    >
       {imageItems}
     </Swiper>
   );
 };
 
-const PPProductDetailEventBannerView = () => {
+function EntranceView(props) {
+  if (props.hintText != "") {
+    return (
+      <View style={{ flex: 2, backgroundColor: "blue", flexDirection: "row" }}>
+        <View style={{
+          flex: 5,
+          justifyContent: "center",
+          alignItems: "flex-end",
+          backgroundColor: "gray",
+        }}>
+          <Text style={{ fontSize: 13, fontWeight: "bold", color: "white", paddingRight: 10 }}>{props.hintText}</Text>
+        </View>
+        <View style={{ flex: 1, justifyContent: "center" }}>
+          <Image source={require("../img/product_detail/product_detail_banner_more.png")} />
+        </View>
+      </View>
+    )
+  } else {
+    return (
+      <View style={{ flex: 2, backgroundColor: "blue", flexDirection: "row" }}>
+        <View style={{
+          flex: 5,
+          justifyContent: "center",
+          alignItems: "center",
+          backgroundColor: "gray",
+        }}>
+          <Text style={{ fontSize: 13, fontWeight: "bold", color: "white" }}>{props.countDownTips}</Text>
+          <CountDownTimer style={{ backgroundColor: "rgba(0,0,0,0)" }}
+                          textTimeStyle={{ fontSize: 12, color: "#cccccc", marginBottom: 3 }}
+                          textUnitStyle={{ fontSize: 10, color: "white" }}
+                          millisUntilFinished={props.countDownTime}
+                          refreshData={() => this._showMessage()} />
+        </View>
+        <View style={{ flex:1, justifyContent: "center" }}>
+          <Image source={require("../img/product_detail/product_detail_banner_more.png")} />
+        </View>
+      </View>
+    );
+  }
+};
+
+const PPProductDetailEventBannerView = ({
+                                          eventPirce,
+                                          title,
+                                          limitText,
+                                          hintText,
+                                          countDownTips,
+                                          countDownTime,
+                                          isShowArrow,
+                                        }) => {
+
   return (
-    <View style={{flex: 1, backgroundColor: 'green'}}>
-      <Image source={require('../img/product_detail/product_detail_event_banner_bg.png')}
-             style={{flex: 1, width: kScreenWidth}}/>
-      <Text style={{fontSize: 30, fontWeight: 'bold', position: 'absolute'}}>Event Banner</Text>
+    <View style={{ backgroundColor: "green", flexDirection: "row", height: 50 }}>
+      <ImageBackground source={require("../img/product_detail/product_detail_event_banner_bg.png")}
+                       style={{ flex: 1, flexDirection: "row" }}>
+        <View style={{ flex: 4 }}>
+          <Text style={{ fontSize: 22, fontWeight: "bold", color: "white", marginLeft: 15 }}>{eventPirce}</Text>
+          <View style={{ display: "flex", flexDirection: "row", alignItems: "center", backgroundColor: "green" }}>
+            <Text style={{
+              fontSize: 11,
+              fontWeight: "bold",
+              color: "white",
+              textAlign: "left",
+              marginLeft: 15,
+              marginTop: 5,
+            }}>
+              {title}
+            </Text>
+            <Text style={{
+              fontSize: 10,
+              fontWeight: "bold",
+              color: "white",
+              textAlign: "left",
+              borderRadius: 8,
+              borderColor: "white",
+              borderWidth: 1,
+              paddingLeft: 5,
+              paddingRight: 5,
+              marginLeft: 5,
+              marginTop: 5,
+            }}>
+              {limitText}
+            </Text>
+          </View>
+        </View>
+
+        <EntranceView hintText={hintText} countDownTips={countDownTips} countDownTime={countDownTime}/>
+      </ImageBackground>
     </View>
   );
 };
 
 const PPProductDetailNameAndPriceView = () => {
   return (
-    <View style={{flex: 1, backgroundColor: 'blue'}}>
-      <Text style={{fontSize: 30, fontWeight: 'bold'}}>Event Banner</Text>
+    <View style={{ flex: 1, backgroundColor: "blue" }}>
+      <Text style={{ fontSize: 30, fontWeight: "bold" }}>Event Banner</Text>
     </View>
   );
 };
 
 const PPProductDetailCellTypeSeparateLine = ({ height }) => {
   return (
-    <View style={{flex: 1, backgroundColor: 'gray', height:height}} />
+    <View style={{ flex: 1, backgroundColor: "gray", height: height }} />
   );
 };
 
@@ -140,27 +267,27 @@ class PPProductDetail extends Component {
 
 // 组件刚加载完成的时候调用一次，以后不会再被调用。
   componentDidMount() {
-    console.log('sdsdlfkjsdlfkjsdlf000000001');
+    console.log("sdsdlfkjsdlfkjsdlf000000001");
     // this.getProductDetail();
   }
 
   getProductDetail() {
     let formData = new FormData();
-    formData.append('product_id',451060);
-    formData.append('timestamp','1625542350234');
-    formData.append('user_id',5637589);
-    formData.append('user_token','abceglmnpqstxyzCDFHILMPQRUWXZ245');
-    formData.append('source_page','default');
+    formData.append("product_id", 451060);
+    formData.append("timestamp", "1625542350234");
+    formData.append("user_id", 5637589);
+    formData.append("user_token", "abceglmnpqstxyzCDFHILMPQRUWXZ245");
+    formData.append("source_page", "default");
 
-    fetch(requestProductUrl,{
-      method: 'POST',
-      headers:{
-        'Accept': 'application/json',
-        'Content-Type': 'application/json'
+    fetch(requestProductUrl, {
+      method: "POST",
+      headers: {
+        "Accept": "application/json",
+        "Content-Type": "application/json",
       },
-      body:formData
-    }).then((response)=> {
-      return response.json()
+      body: formData,
+    }).then((response) => {
+      return response.json();
     }).then((responseData) => {
 
       // let newArray = this.state.array.slice()
@@ -203,10 +330,10 @@ class PPProductDetail extends Component {
     }).done();
   }
 
-  render () {
-    const imageArr = ['http://patpatwebstatic.s3.us-west-2.amazonaws.com/origin/product/000372000561/5ed5b8c853dd3.jpg',
-      'http://patpatwebstatic.s3.us-west-2.amazonaws.com/origin/product/013579000000/5e79a5df51570.jpg',
-      'http://patpatwebstatic.s3.us-west-2.amazonaws.com/origin/product/013579000000/5e79a5df8faff.jpg'];
+  render() {
+    const imageArr = ["http://patpatwebstatic.s3.us-west-2.amazonaws.com/origin/product/000372000561/5ed5b8c853dd3.jpg",
+      "http://patpatwebstatic.s3.us-west-2.amazonaws.com/origin/product/013579000000/5e79a5df51570.jpg",
+      "http://patpatwebstatic.s3.us-west-2.amazonaws.com/origin/product/013579000000/5e79a5df8faff.jpg"];
 
     const renderItem = ({ item }) => {
       if (item.type === PPProductDetailCellType.images) {
@@ -215,7 +342,14 @@ class PPProductDetail extends Component {
         );
       } else if (item.type === PPProductDetailCellType.eventBanner) {
         return (
-          <PPProductDetailEventBannerView title={item.title} />
+          <PPProductDetailEventBannerView title={"新人专享"}
+                                          eventPirce={"$4.99"}
+                                          limitText={"每人限制5件"}
+                                          hintText={""}
+                                          countDownTips={"Ends in:"}
+                                          countDownTime={3000000}
+                                          isShowArrow={false}
+          />
         );
       } else if (item.type === PPProductDetailCellType.nameAndPrice) {
         return (
@@ -231,7 +365,7 @@ class PPProductDetail extends Component {
 
       return (
         <Item title={item.title} />
-      )
+      );
     };
 
     return (
@@ -248,11 +382,11 @@ class PPProductDetail extends Component {
 };
 
 function handleBackClick() {
-  alert('back');
+  alert("back");
 }
 
 function handleBagClick() {
-  alert('bag');
+  alert("bag");
 }
 
 const styles = StyleSheet.create({
@@ -260,15 +394,15 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   item: {
-    backgroundColor: '#f9c2ff',
+    backgroundColor: "#f9c2ff",
     padding: 20,
     marginVertical: 8,
     marginHorizontal: 16,
   },
   title: {
     fontSize: 32,
-    color:'black'
-  },
+    color: "black",
+  }
 });
 
 const product_detail_styles = StyleSheet.create({
@@ -279,27 +413,27 @@ const product_detail_styles = StyleSheet.create({
 
   slide1: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#9DD6EB'
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "#9DD6EB",
   },
   slide2: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#97CAE5'
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "#97CAE5",
   },
   slide3: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#92BBD9'
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "#92BBD9",
   },
   text: {
-    color: '#fff',
+    color: "#fff",
     fontSize: 30,
-    fontWeight: 'bold'
-  }
+    fontWeight: "bold",
+  },
 });
 
 // const _styles = StyleSheet.create({
@@ -308,21 +442,21 @@ const product_detail_styles = StyleSheet.create({
 
 const navigation_styles = StyleSheet.create({
   container: {
-    flex:1,
+    flex: 1,
     height: kNavigationBarHeight,
     width: kScreenWidth,
-    backgroundColor: 'transparent', //'pink',
+    backgroundColor: "transparent", //'pink',
     flexDirection: "row",
     alignItems: "center",  // 使元素垂直居中排布, 当flexDirection为column时, 为水平居中
-    justifyContent: 'space-between',
-    position:'absolute',
+    justifyContent: "space-between",
+    position: "absolute",
   },
   backButton: {
     marginTop: kStatusBarHeight,
     marginLeft: 15,
-    width:28,
-    height:28,
-    resizeMode: 'stretch'
+    width: 28,
+    height: 28,
+    resizeMode: "stretch",
   },
   searchBox: {
     marginTop: kStatusBarHeight,
