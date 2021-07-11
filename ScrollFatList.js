@@ -200,8 +200,7 @@ function CreateFatListCell(props) {
             return (
                 <View>
 
-                 <PPTapMenuView data={props}></PPTapMenuView>
-
+                 <PPTapMenuView data={props} refview={this.myScrollView}></PPTapMenuView>
                     <ScrollView
                         ref={(view) => { this.myScrollView = view }}
                         pagingEnabled={true}
@@ -371,8 +370,6 @@ class RecommendFatList extends Component {
 
     _onEndReached() {
 
-        alert('_onEndReached')
-
         if (this.state.isRequesting) {
             return
         }
@@ -454,18 +451,11 @@ class PPMenuButtonView extends Component {
         if(index == this.props.selectedIndex){
             return
         } 
-
-        // this.setState({
-        //      selectIndex:index 
-        // })
-
         this.props.onUpdateStatus(index)
-
     }
 
     render() {
 
-        console.log(this.props.data)
         return <TouchableWithoutFeedback
             onPress={
                  this.clickItem.bind(this)
@@ -498,33 +488,29 @@ class PPTapMenuView extends Component {
         }
     }  
 
-     updateStatus(index) {
+     _updateStatus(index) {
+        this.setState({
+          selectIndex:index
+        })
 
-        // alert(index)
-        console.log(this)
-        // this.setState({
-        //     selectIndex: true,
-        // })
+       this.props.refview.scrollTo({x:index* CategoryCommon.Screen_Width, y: 0, animated: true}); // 滚动到指定x,y位置
 
-        // this.state.selectIndex = index
 
-    //  this.setState({
-    //     selectIndex:index
-    //  })
 
     }
 
     render() {
 
-        // console.log(this.props.state)
+
+        console.log(this.props.refview)
+
         return <View style={{ backgroundColor: 'grey', width: CategoryCommon.Screen_Width, height: 50, flex: 1, flexDirection: 'row' }}>
-            <PPMenuButtonView id={this.props.data.state.topmenus[0]} data={this.props.data.state.topmenus}  selectedIndex={this.state.selectIndex} onUpdateStatus={this.updateStatus}>
+            <PPMenuButtonView id={this.props.data.state.topmenus[0]} data={this.props.data.state.topmenus}  selectedIndex={this.state.selectIndex} onUpdateStatus={this._updateStatus.bind(this)}>
             </PPMenuButtonView>
-            <PPMenuButtonView id={this.props.data.state.topmenus[1]} data={this.props.data.state.topmenus}  selectedIndex={this.state.selectIndex} onUpdateStatus={this.updateStatus}>
+            <PPMenuButtonView id={this.props.data.state.topmenus[1]} data={this.props.data.state.topmenus}  selectedIndex={this.state.selectIndex} onUpdateStatus={this._updateStatus.bind(this)}>
             </PPMenuButtonView>
         </View>
     }
-
 
 }
 
