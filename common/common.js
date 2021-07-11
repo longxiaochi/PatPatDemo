@@ -32,16 +32,6 @@ export const kNavigationBarHeight = (isIPhoneXABOVE ? 88 : 64); // navigation + 
 export const kBottomTabBarHeight = (isIPhoneXABOVE ? 83 : 49);
 export const kBottomSafeAreaInset = (isIPhoneXABOVE ? 34 : 0);
 
-// #define kStatusBarHeight               (20.f)
-// #define kTopBarHeight                  (44.f)
-// #define kBottomBarHeight               (49.f)
-// #define kNavigationBarHeight           (isIPhoneXSeries()?88.f:64.f)
-// #define kNavigationBarOriginY          (isIPhoneXSeries()?64.f:44.f)
-// #define kIphoneXStatusBarHeight        (44.f)
-// #define kIphoneXTopBarHeight           (44.f)
-// #define kIphoneXBottomBarHeight        (83.f)
-// #define kIphoneXBottomSafeAreaInset    (34.f)
-
 //判断是否为iphoneX类型的机型
 function isIPhoneX() {
   return (

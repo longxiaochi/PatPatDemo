@@ -10,11 +10,20 @@ import {
     TouchableWithoutFeedback,
     ActivityIndicator
 } from 'react-native';
-const CategoryCommon = require('./Common')
-import CategoryDetailProductItem from './CategoryDetailProductItem';
-const CategoryDetailStyle = require('./CategoryDetailStyles');
 
-export default class CategoryDetailListPage extends Component {
+import CheckInProductItem from '../CheckInProductItem';
+import CountDownTimer from "../../common/countDownTimer";
+
+const CheckInStyle = require('./PPCheckInStyles');
+const Common = require('../../common/common')
+
+
+const kHeaderBgImageHeight = Common.isIPhoneXABOVE ? 230 : 210;
+const kHeaderBgImageWidth = Common.kScreenWidth;
+const requestCheckInNavUrl = "http://h5_api.dev.patpat.vip/v1.4/account/checkin/nav";
+const requestCheckInUrl = "http://h5_api.dev.patpat.vip/v1.4/account/new_checkin";
+
+export default class PPCheckInModule extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -40,8 +49,8 @@ export default class CategoryDetailListPage extends Component {
         formData.append('user_token', '6c8b41215b7d6aa504f16cacc7928adf')
         formData.append('is_checkin', 0)
         formData.append('timestamp', '1625972580898')
-        console.log(CategoryCommon.requestCheckInUrl)
-        fetch(CategoryCommon.requestCheckInUrl, {
+        console.log(requestCheckInUrl)
+        fetch(requestCheckInUrl, {
             method: 'POST',
             headers: {
                 'Accept': 'application/json',
@@ -78,7 +87,7 @@ export default class CategoryDetailListPage extends Component {
         formData.append('page_size', '20');
         formData.append('page', 1);
         formData.append('user_id', '36618050');
-        fetch(CategoryCommon.requestCheckInNavUrl, {
+        fetch(requestCheckInNavUrl, {
             method: 'POST',
             headers: {
                 'Accept': 'application/json',
@@ -136,7 +145,7 @@ export default class CategoryDetailListPage extends Component {
         const { data } = this.state;
         return (
             <View style={
-                CategoryDetailStyle.styles.container
+                CheckInStyle.styles.container
             } >
                 <FlatList ref="touchFlatListView"
                     key={
@@ -173,7 +182,7 @@ function CreateFatListCell(props) {
 
         case 'first':
 
-            return <View style={{ backgroundColor: 'red', width: CategoryCommon.Screen_Width, height: 200 }}>
+            return <View style={{ backgroundColor: 'red', width: Common.kScreenWidth, height: 200 }}>
                 <Text>{props.id.title}</Text>
             </View>
 
@@ -181,7 +190,7 @@ function CreateFatListCell(props) {
 
         case 'second':
 
-            return <View style={{ backgroundColor: 'yellow', width: CategoryCommon.Screen_Width, height: 150 }}>
+            return <View style={{ backgroundColor: 'yellow', width: Common.kScreenWidth, height: 150 }}>
                 <Text>{props.id.title}</Text>
             </View>
 
@@ -189,7 +198,7 @@ function CreateFatListCell(props) {
 
         case 'third':
 
-            return <View style={{ backgroundColor: 'blue', width: CategoryCommon.Screen_Width, height: 100 }}>
+            return <View style={{ backgroundColor: 'blue', width: Common.kScreenWidth, height: 100 }}>
                 <Text>{props.id.title}</Text>
             </View>
 
@@ -234,7 +243,7 @@ function CreateRecommendProductPageView(props) {
 
             return <View style={{
                 backgroundColor: 'white',
-                width: CategoryCommon.Screen_Width,
+                width: Common.kScreenWidth,
             }}>
 
                 <RecommendFatList
@@ -249,7 +258,7 @@ function CreateRecommendProductPageView(props) {
 
             return <View style={{
                 backgroundColor: 'white',
-                width: CategoryCommon.Screen_Width,
+                width: Common.kScreenWidth,
             }}>
 
                 <RecommendFatList
@@ -286,7 +295,7 @@ class RecommendFatList extends Component {
         formData.append('page_size', '20');
         formData.append('page', this.state.page);
         formData.append('user_id', '36618050');
-        fetch(CategoryCommon.requestCheckInNavUrl, {
+        fetch(requestCheckInNavUrl, {
             method: 'POST',
             headers: {
                 'Accept': 'application/json',
@@ -337,7 +346,7 @@ class RecommendFatList extends Component {
             if (this.state.isOver) {
                 return (<
                     View style={
-                        CategoryDetailStyle.productlist_styles.footer
+                        CheckInStyle.productlist_styles.footer
                     } >
                     <
                         Text >
@@ -347,7 +356,7 @@ class RecommendFatList extends Component {
             }
             return (<
                 View style={
-                    CategoryDetailStyle.productlist_styles.footer
+                    CheckInStyle.productlist_styles.footer
                 } >
                 <
                     ActivityIndicator />
@@ -359,7 +368,7 @@ class RecommendFatList extends Component {
 
             return (<
                 View style={
-                    CategoryDetailStyle.productlist_styles.loading_view
+                    CheckInStyle.productlist_styles.loading_view
                 } >
                 <
                     ActivityIndicator />
@@ -399,12 +408,12 @@ class RecommendFatList extends Component {
                     item,
                     index
                 }) => {
-                    return <CategoryDetailProductItem
+                    return <CheckInProductItem
                         id={
                             item.product_id
                         }
                         itemWidth={
-                            (CategoryCommon.Screen_Width - 30) / 2
+                            (Common.kScreenWidth - 30) / 2
                         }
                         imageUrl={
                             item.image
@@ -435,6 +444,7 @@ class RecommendFatList extends Component {
         />
     }
 }
+
 
 class PPMenuButtonView extends Component {
 
@@ -478,7 +488,6 @@ function UpdateMenuButtonStatus(props) {
      }
 }
 
-
 class PPTapMenuView extends Component {
 
     constructor(props) {
@@ -505,8 +514,5 @@ class PPTapMenuView extends Component {
     }
 
 }
-
-
-
 
 
