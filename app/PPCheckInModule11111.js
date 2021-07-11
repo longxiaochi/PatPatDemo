@@ -189,10 +189,10 @@ class PPCheckInDailyItemView extends Component {
               paddingTop:6,
               paddingBottom:6,
             }}>
-              <Text style={{fontSize: 12, color: 'rgba(241, 67, 90, 1)', fontWeight:'bold'}}>+$1</Text>
+              <Text style={{fontSize: 12, color: 'rgba(241, 67, 90, 1)', fontWeight:'bold'}}>{this.props.price}</Text>
               <Image source={require("../img/checkin/checkIn_eur_icon.png")}/>
             </View>
-            <Text style={{color: 'rgba(168, 168, 168, 1)', fontSize: 10, textAlign:'center', marginTop:8}}>Lun</Text>
+            <Text style={{color: 'rgba(168, 168, 168, 1)', fontSize: 10, textAlign:'center', marginTop:8}}>{this.props.whichDay}</Text>
         </TouchableOpacity>
       );
     }
@@ -217,13 +217,13 @@ class PPCheckInProgressContainerView extends  Component {
        paddingRight:15,
      }}
      >
-       <PPCheckInDailyItemView />
-       <PPCheckInDailyItemView />
-       <PPCheckInDailyItemView />
-       <PPCheckInDailyItemView />
-       <PPCheckInDailyItemView />
-       <PPCheckInDailyItemView />
-       <PPCheckInDailyItemView />
+       <PPCheckInDailyItemView price={'+$1'} whichDay={'Lun'} />
+       <PPCheckInDailyItemView price={'+$1'} whichDay={'Tue'}/>
+       <PPCheckInDailyItemView price={'+$1'} whichDay={'Wed'}/>
+       <PPCheckInDailyItemView price={'+$1'} whichDay={'Thu'}/>
+       <PPCheckInDailyItemView price={'+$1'} whichDay={'Fri'}/>
+       <PPCheckInDailyItemView price={'+$1'} whichDay={'Sta'}/>
+       <PPCheckInDailyItemView price={'+$1'} whichDay={'Sun'}/>
      </View>
     );
   }

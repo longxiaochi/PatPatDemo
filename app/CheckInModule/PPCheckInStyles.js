@@ -3,7 +3,7 @@ import {
     Dimensions
 } from 'react-native';
 
-const CategoryCommon = require('./Common')
+const CheckInCommon = require('../../common/common')
 
 export const styles = StyleSheet.create({
     container: {
@@ -37,7 +37,7 @@ export const productlist_styles = StyleSheet.create({
         paddingLeft: 25,
         paddingRight: 25,
         flexDirection: 'row',
-        alignItems: 'center' // 使元素垂直居中排布, 当flexDirection为column时, 为水平居中  
+        alignItems: 'center' // 使元素垂直居中排布, 当flexDirection为column时, 为水平居中
     },
     backbtn: {
         width: 22,
@@ -46,9 +46,9 @@ export const productlist_styles = StyleSheet.create({
     },
     searchBox: {
         height: 30,
-        flexDirection: 'row', // 水平排布  
+        flexDirection: 'row', // 水平排布
         flex: 1,
-        borderRadius: 15, // 设置圆角边  
+        borderRadius: 15, // 设置圆角边
         backgroundColor: '#F8F8F8',
         alignItems: 'center',
         marginLeft: 15,
@@ -59,7 +59,7 @@ export const productlist_styles = StyleSheet.create({
         backgroundColor: 'transparent',
         fontSize: 15,
     },
-    searchIcon: { //搜索图标  
+    searchIcon: { //搜索图标
         height: 17,
         width: 17,
         marginLeft: 5,
@@ -156,7 +156,7 @@ export const productlist_styles = StyleSheet.create({
         marginLeft: 10,
         justifyContent: 'center',
         alignItems: 'center',
-        width: CategoryCommon.Screen_Width - 142,
+        width: CheckInCommon.kScreenWidth - 142,
         borderRadius: 5
     },
     sizeText: {
@@ -186,14 +186,14 @@ export const productitem_styles = StyleSheet.create({
         marginBottom: 2
     },
     image: {
-        width: (CategoryCommon.Screen_Width - 30) / 2.0,
+        width: (CheckInCommon.kScreenWidth - 30) / 2.0,
         height: 200,
         flex: 1,
         resizeMode: "cover",
         marginLeft: 10
     },
     text: {
-        width: (CategoryCommon.Screen_Width - 30) / 2.0,
+        width: (CheckInCommon.kScreenWidth - 30) / 2.0,
         flexWrap: 'wrap',
         fontSize: 12,
         color: 'black',
@@ -234,7 +234,7 @@ export const productitem_styles = StyleSheet.create({
     },
     categoryItemview: {
         backgroundColor: 'white',
-        width: CategoryCommon.Screen_Width / 4,
+        width: CheckInCommon.kScreenWidth / 4,
         height: 80,
         justifyContent: 'center',
         alignItems: 'center'
@@ -255,7 +255,7 @@ export const productitem_styles = StyleSheet.create({
     },
     sortItemview: {
         backgroundColor: 'white',
-        width: CategoryCommon.Screen_Width,
+        width: CheckInCommon.kScreenWidth,
         height: 50,
         justifyContent: 'center',
         alignItems: 'center'
@@ -272,12 +272,12 @@ export const productitem_styles = StyleSheet.create({
     },
     sortLineview: {
         backgroundColor: '#F1F3F2',
-        width: CategoryCommon.Screen_Width,
+        width: CheckInCommon.kScreenWidth,
         height: 0.5,
     },
     onesizeItemview: {
         backgroundColor: '#F1F3F2',
-        width: (CategoryCommon.Screen_Width - 40) / 3,
+        width: (CheckInCommon.kScreenWidth - 40) / 3,
         height: 30,
         marginLeft: 10,
         marginTop: 20,
@@ -287,7 +287,7 @@ export const productitem_styles = StyleSheet.create({
     },
     onesizeSelectedItemview: {
         backgroundColor: '#FAE4E7',
-        width: (CategoryCommon.Screen_Width - 40) / 3,
+        width: (CheckInCommon.kScreenWidth - 40) / 3,
         height: 30,
         marginLeft: 10,
         marginTop: 20,
@@ -297,7 +297,7 @@ export const productitem_styles = StyleSheet.create({
     },
     sizeItemview: {
         backgroundColor: '#F1F3F2',
-        width: (CategoryCommon.Screen_Width - 40) / 3,
+        width: (CheckInCommon.kScreenWidth - 40) / 3,
         height: 30,
         marginLeft: 10,
         alignItems: 'center',
@@ -307,7 +307,7 @@ export const productitem_styles = StyleSheet.create({
     },
     sizeSelectedItemview: {
         backgroundColor: '#FAE4E7',
-        width: (CategoryCommon.Screen_Width - 40) / 3,
+        width: (CheckInCommon.kScreenWidth - 40) / 3,
         height: 30,
         marginLeft: 10,
         alignItems: 'center',

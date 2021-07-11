@@ -6,20 +6,20 @@ import {
   ImageBackground,
 } from "react-native";
 
-const CategoryDetailStyle = require("./CategoryDetailStyles");
+const CheckInStyles = require("./PPCheckInStyles");
 
-export default class CategoryDetailProductItem extends Component {
+export default class PPCheckInProductItem extends Component {
 
    render() {
     const { id, imageUrl, name, price, onPressItem } = this.props;
     return (
       <TouchableWithoutFeedback
-        style={CategoryDetailStyle.productitem_styles.feedback}
+        style={CheckInStyle.productitem_styles.feedback}
         onPress={() => onPressItem(id)}
       >
-        <View style={CategoryDetailStyle.productitem_styles.view}>
+        <View style={CheckInStyle.productitem_styles.view}>
           <ImageBackground
-            style={CategoryDetailStyle.productitem_styles.image}
+            style={CheckInStyle.productitem_styles.image}
             imageStyle={{
               borderRadius: 5,
             }}
@@ -29,12 +29,12 @@ export default class CategoryDetailProductItem extends Component {
           />
           <Text
             numberOfLines={1}
-            style={CategoryDetailStyle.productitem_styles.text}
+            style={CheckInStyle.productitem_styles.text}
           >
             {name}
           </Text>
-          <View style={CategoryDetailStyle.productitem_styles.bottomView}>
-            <Text style={CategoryDetailStyle.productitem_styles.price}>
+          <View style={CheckInStyle.productitem_styles.bottomView}>
+            <Text style={CheckInStyle.productitem_styles.price}>
               {price}
             </Text>
           </View>
