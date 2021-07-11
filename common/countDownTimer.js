@@ -193,7 +193,6 @@ export default class CountDownTimer extends Component {
     return 0;
   }
 
-
   render() {
     return (
       <View style={[styles.container,this.props.style]}>
@@ -203,19 +202,20 @@ export default class CountDownTimer extends Component {
         {/*<Text style={[{fontSize: 15,}, this.props.textUnitStyle]}>*/}
         {/*  {'天'}*/}
         {/*</Text>*/}
+
         <Text style={[{fontSize: 15, color: 'red', marginLeft: 4}, this.props.textTimeStyle]}>
           {this._addNumber(this.state.hour)}
         </Text>
         <Text style={[{fontSize: 15,}, this.props.textUnitStyle]}>
           {/*{'时'}*/}
-          {':'}
+          {' :'}
         </Text>
         <Text style={[{fontSize: 15, color: 'red', marginLeft: 4}, this.props.textTimeStyle]}>
           {this._addNumber(this.state.minute)}
         </Text>
         <Text style={[{fontSize: 15,}, this.props.textUnitStyle]}>
           {/*{'分'}*/}
-          {':'}
+          {' :'}
         </Text>
         <Text style={[{fontSize: 15, color: 'red', marginLeft: 4}, this.props.textTimeStyle]}>
           {this._addNumber(this.state.second)}
